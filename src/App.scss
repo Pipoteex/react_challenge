@@ -1,0 +1,51 @@
+
+.App{
+    padding: 10px 90px;
+    .titulo{
+       font-size: 50px;
+    }
+    .contenido{
+        
+        .titulo_contenido{
+            .nombre{
+                border: 1px solid black;
+                width: 30%;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                text-align: center;
+                color: white;
+                background: black;
+                padding: 10px 0px;
+            }
+        }
+        .caja_principal{
+            border: 1px solid black;
+            border-radius: 10px;
+            border-top-left-radius: 0px;
+            padding: 50px;
+            .buscador{
+                .caja_buscador{
+                    border: 1px solid black;
+                    border-radius: 10px;
+                    padding: 10px 20px;
+                    display: flex;
+                    input{
+                        width: 100%;
+                        border: none;
+                        outline: none;
+                        padding: 10px 0px;
+                        font-size: 20px;
+                    }
+                    svg{
+                        width: 20px;
+                        padding-left: 10px;
+                    }
+                }
+            }
+            .caja_monedas{
+                
+                
+            }
+        }
+    }
+}
