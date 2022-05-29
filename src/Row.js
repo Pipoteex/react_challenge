@@ -24,8 +24,6 @@ export const Row = ( props ) => {
     conection.onmessage = function (event) {
 
         let data = JSON.parse( event.data );
-        
-
         setValues( data.b )
         setPorcent( data.P )
 
@@ -91,7 +89,6 @@ export const Row = ( props ) => {
         </div>
         
     </div>
-
     
   )
 }

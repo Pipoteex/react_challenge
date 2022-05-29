@@ -45,8 +45,7 @@ function App() {
           let coinObject = {
             valueX: post.map( element => new Date(element[0]) ),
             valueY: post.map( element => element[1] ),
-            name: coinElement,
-            
+            name: coinElement
           }
 
           coordinatesList.push( coinObject )
