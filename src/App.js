@@ -11,8 +11,6 @@ const getDatos = ( money ) =>{
   let firstDate = new Date()
   let secondDate = firstDate.getTime() - ( 24 * 60 * 60 * 1000 )
 
-  /* console.log( firstDate.getTime() + "  " + secondDate + "  " + money ) */
-
   return fetch(`https://api.binance.com/api/v3/klines?symbol=${ money }&interval=1h&limit=24&startTime=${ secondDate }&endTime=${ firstDate.getTime() }`)
 
 }
@@ -20,35 +18,14 @@ const getDatos = ( money ) =>{
 
 function App() {
 
-  const [ values, setValues ] = useState([])
   const [ searchValues, setSearchValues ] = useState([])
   const [ flag, setFlag ] = useState( true )
-  const [ valueList, setValueList ] = useState( {} )
 
   useEffect(() => {
      
     graficas()
 
   }, []);
-
-  const getConections = async () =>{
-
-    /* arrayList.map(  async (e) => {
-      let conection = await new WebSocket(`wss://stream.binance.com:9443/ws/${ e.toLowerCase() }@ticker`) 
-      
-      conection.onmessage = function (event) {
-
-          let data = JSON.parse( event.data );
-          console.log( data )
-
-          setValueList( { ...valueList, [e]: { cost: data.b, porcent: data.p } } )
-
-      }
-    
-    } ) */
-    
-
-  }
 
   const graficas = () =>{
 
@@ -81,10 +58,7 @@ function App() {
 
     Promise.all( promiseList ).then( resp => {
 
-      console.log( "LISTO" )
-      setValues( coordinatesList )
       setSearchValues( coordinatesList )
-      getConections()
       setFlag( false )
 
     })
@@ -93,8 +67,16 @@ function App() {
 
   const searchComponent = ( e ) =>{
 
-    setSearchValues( values.filter( s => s.name.toLowerCase().indexOf( e.target.value.toLocaleLowerCase() ) > -1 ))
-    
+    document.querySelectorAll( ".fila" ).forEach( element =>{
+
+      if( element.getAttribute("value").toLowerCase().indexOf( e.target.value.toLocaleLowerCase() ) > -1 ){
+        element.style.display = "flex" 
+      }else{
+        element.style.display = "none" 
+      }
+
+    } )
+
   }
 
   return (
@@ -125,7 +107,6 @@ function App() {
                 return <Row 
                           key={ index } 
                           objectElement={ objectElement }
-                          costs={ valueList[ objectElement.nam ] }
                         />
               })
             }

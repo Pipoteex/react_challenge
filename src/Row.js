@@ -2,10 +2,20 @@ import React, { useEffect, useState } from 'react'
 import Plot from 'react-plotly.js';
 import "./Row.scss"
 
+function ColorCode() {
+  var makingColorCode = '0123456789ABCDEF';
+  var finalCode = '#';
+  for (var counter = 0; counter < 6; counter++) {
+     finalCode =finalCode+ makingColorCode[Math.floor(Math.random() * 16)];
+  }
+  return finalCode;
+}
+
 export const Row = ( props ) => {
 
-  const [ values, setValues ] = useState(0)
-  const [ porcent, setPorcent ] = useState(0)
+  const [ values, setValues ] = useState( 0 )
+  const [ porcent, setPorcent ] = useState( 0 )
+  const [ color ] = useState( ColorCode() )
 
   useEffect( () => {
 
@@ -14,13 +24,12 @@ export const Row = ( props ) => {
     conection.onmessage = function (event) {
 
         let data = JSON.parse( event.data );
-        console.log( data )
+        
 
         setValues( data.b )
         setPorcent( data.P )
 
     }
-
     
   }, [])
 
@@ -65,7 +74,7 @@ export const Row = ( props ) => {
                     x: props.objectElement.valueX,
                     y: props.objectElement.valueY,
                     type: 'scatter',
-                    marker: {color: 'red'}
+                    marker: {color: color }
                   }
               ]}
               useResizeHandler={true}
@@ -78,7 +87,7 @@ export const Row = ( props ) => {
         <div className='precio'> 
               <div className='moneda'> ARS </div>
               <div className='valor'> { calculateCost() } </div>
-              <div className='otro_valor' style={ Number(porcent) > 0 ? { color: "green" } : { color: "red" } } > { Number(porcent).toFixed( 4 ) + "% "  } </div>
+              <div className='otro_valor' style={ Number(porcent) >= 0 ? { color: "#3ccb3c" } : { color: "red" } } > { Number(porcent).toFixed( 4 ) + "% "  } </div>
         </div>
         
     </div>
