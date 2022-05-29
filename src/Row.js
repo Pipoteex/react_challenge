@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import Plot from 'react-plotly.js';
 import "./Row.scss"
+import { Loading } from './Loading.jsx'
 
 function ColorCode() {
   var makingColorCode = '0123456789ABCDEF';
@@ -16,6 +17,7 @@ export const Row = ( props ) => {
   const [ values, setValues ] = useState( 0 )
   const [ porcent, setPorcent ] = useState( 0 )
   const [ color ] = useState( ColorCode() )
+  const [ flag, setFlag ] = useState( true )
 
   useEffect( () => {
 
@@ -26,6 +28,7 @@ export const Row = ( props ) => {
         let data = JSON.parse( event.data );
         setValues( data.b )
         setPorcent( data.P )
+        setFlag( false )
 
     }
     
@@ -83,9 +86,20 @@ export const Row = ( props ) => {
         </div>
 
         <div className='precio'> 
-              <div className='moneda'> ARS </div>
-              <div className='valor'> { calculateCost() } </div>
-              <div className='otro_valor' style={ Number(porcent) >= 0 ? { color: "#3ccb3c" } : { color: "red" } } > { Number(porcent).toFixed( 4 ) + "% "  } </div>
+              
+              {
+                flag
+                ?
+                <Loading ancho={"50"}></Loading>
+                :
+                <Fragment>
+                  <div className='moneda'> ARS </div>
+                  <div className='valor'> { calculateCost() } </div>
+                  <div className='otro_valor' style={ Number(porcent) >= 0 ? { color: "#3ccb3c" } : { color: "red" } } > { Number(porcent).toFixed( 4 ) + "% "  } </div>
+                </Fragment>
+              }
+
+              
         </div>
         
     </div>
